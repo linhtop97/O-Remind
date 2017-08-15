@@ -23,7 +23,6 @@ public class NotificationService extends Service {
     }
     private void CreateNotification(Context context) {
         Intent reintent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent2 = PendingIntent.getActivity(context, 0, reintent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, reintent, PendingIntent.FLAG_UPDATE_CURRENT);
         Uri uri = Uri.parse("android.resource://" + context.getPackageName() + "/" +R.raw.rington);
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)

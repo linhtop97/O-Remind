@@ -5,13 +5,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.nguye.o_remind.MainActivity">
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/layoutProgress"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <ImageView
+            android:id="@+id/ImgProgress1"
+            android:layout_width="28dp"
+            android:src="@drawable/ic_brain2"
+            android:layout_height="28dp"
+            android:scaleType="fitXY"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/ImgProgress2"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_brain2"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/ImgProgress3"
+            android:layout_width="28dp"
+            android:layout_marginRight="5dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_brain2"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/ImgProgress4"
+            android:layout_width="28dp"
+            android:layout_marginRight="5dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_brain2"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/ImgProgress5"
+            android:layout_width="28dp"
+            android:src="@drawable/ic_brain2"
+            android:layout_height="28dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:id="@+id/ImgProgress6"
+            android:layout_width="28dp"
+            android:src="@drawable/ic_brain2"
+            android:layout_height="28dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    </LinearLayout>
     <ImageView
         android:id="@+id/ImgMilis"
         android:layout_width="32dp"
         android:layout_height="32sp"
         android:scaleType="fitXY"
-        android:layout_marginTop="77dp"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="68dp"
+        android:layout_below="@+id/layoutProgress"
         android:layout_centerHorizontal="true" />
     <TextView
         android:id="@+id/tvMinutes"
