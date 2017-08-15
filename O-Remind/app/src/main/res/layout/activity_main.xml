@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nguye.o_remind.MainActivity">
+    <ImageView
+        android:id="@+id/ImgMilis"
+        android:layout_width="32dp"
+        android:layout_height="32sp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="77dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/tvMinutes"
+        android:layout_width="wrap_content"
+        android:text="00:00"
+        android:textSize="60sp"
+        android:layout_marginTop="47dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/ImgMilis"
+        android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_below="@id/tvMinutes"
+        android:id="@+id/Option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/btnWorking"
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:src="@drawable/iconapp"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+        <ImageButton
+            android:id="@+id/btnRelax"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="50dp"
+            android:background="@null"
+            android:src="@drawable/coffee"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_below="@id/tvMinutes"
+        android:id="@+id/Option2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/btnSkip"
+            android:scaleType="fitXY"
+            android:background="@drawable/bgimagebutton"
+            android:src="@drawable/ic_skip_next_black_24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+        <ImageButton
+            android:id="@+id/btnPause"
+            android:scaleType="fitXY"
+            android:background="@drawable/bgimagebutton"
+            android:layout_marginLeft="30dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            />
+        <ImageButton
+            android:id="@+id/btnStop"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/bgimagebutton"
+            android:src="@drawable/ic_stop_black_24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+    </LinearLayout>
+    <LinearLayout
+    android:gravity="center"
+    android:layout_marginTop="80dp"
+    android:layout_below="@id/tvMinutes"
+    android:id="@+id/Option3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageButton
+        android:id="@+id/btnWorking2"
+        android:scaleType="fitXY"
+        android:background="@null"
+        android:src="@drawable/iconapp"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+    <ImageButton
+        android:id="@+id/btnStop2"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/bgimagebutton"
+        android:src="@drawable/ic_stop_black_24dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+</LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="80dp"
+        android:layout_below="@id/tvMinutes"
+        android:id="@+id/Option4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/btnRelax2"
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:src="@drawable/coffee"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+        <ImageButton
+            android:id="@+id/btnStop3"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/bgimagebutton"
+            android:src="@drawable/ic_stop_black_24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+    </LinearLayout>
+
+</RelativeLayout>
