@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#797976</color>
     <color name="bgButtom">#ef5024</color>
+    <color name="bgButtonFloat">#fa0e12</color>
 </resources>

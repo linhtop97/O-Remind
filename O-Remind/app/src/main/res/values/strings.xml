@@ -5,5 +5,6 @@
     <string name="Skip">Skip</string>
     <string name="Stop">Stop</string>
     <string name="Play">Play</string>
+    <string name="Setup">Settings</string>
 
 </resources>

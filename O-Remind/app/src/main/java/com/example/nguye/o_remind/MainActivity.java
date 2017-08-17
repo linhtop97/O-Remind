@@ -4,11 +4,14 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     static int MinutesWorking = 2;
     static int MinutesRelax = 1;
     static int seconds = 0;
-    static int checkWork = 0;
+    static int checkWork = 2;
 
     int ck = 0;
     ImageView ImgProgress1,ImgProgress2,ImgProgress3,ImgProgress4,ImgProgress5,ImgProgress6;
@@ -64,21 +68,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-//        imgAlpha.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(x==1){
-//                    view.startAnimation(animationalpha);
-//                    x=0;
-//                }
-//                else if(x==0){
-//                    view.clearAnimation();
-//                    x=1;
-//                }
-//
-//            }
-//        });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
@@ -98,58 +87,66 @@ public class MainActivity extends AppCompatActivity {
         btnWorking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Working();
-                StartAnimation();
+                    Working();
+                    StartAnimation();
             }
         });
         btnWorking2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Working();
-                StartAnimation();
+                if (checkWork == 2 && checkAnimation!=7) {
+                    Working();
+                    StartAnimation();
+                }
             }
         });
 
         btnRelax.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Relax();
+                    Relax();
+                if(checkAnimation!=1){
+                    CancelAnimation();
+                }
+
             }
         });
         btnRelax2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Relax();
+                if (checkWork == 1 && checkAnimation!=6){
+                    CancelAnimation();
+                    Relax();
+                }else if(checkWork == 1 && checkAnimation==6){
+                    // checkAnimation=0;
+                    CancelAnimation();
+                    StartAnimation();
+                    MinutesRelax =3;
+                    seconds = 0;
+                    Relax();
+                    //checkAnimation=1;
+                    checkAnimation=1;
+                    ck=0;
+                }
+
             }
         });
+
+
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (checkWork == 1) {
+                if (checkWork == 1 && checkAnimation!=6) {
                     count1.cancel();
+                    CancelAnimation();
                     MinutesRelax = 1;
                     seconds = 0;
                     CountTimeRelax();
                     checkWork = 2;
                     ck=0;
-                    CancelAnimation();
-//                    switch (checkAnimation){
-//                        case 1 :
-//                            ImgProgress1.clearAnimation();checkAnimation++;break;
-//                        case 2 :
-//                            ImgProgress2.clearAnimation();checkAnimation++;break;
-//                        case 3 :
-//                            ImgProgress3.clearAnimation();checkAnimation++;break;
-//                        case 4 :
-//                            ImgProgress4.clearAnimation();checkAnimation++;break;
-//                        case 5 :
-//                            ImgProgress5.clearAnimation();checkAnimation++;break;
-//                        case 6 :
-//                            ImgProgress6.clearAnimation();checkAnimation++;break;
-//                    }
 
-                } else if (checkWork == 2) {
+                } else if (checkWork == 2 && checkAnimation!=7) {
                     count2.cancel();
                     MinutesWorking = 2;
                     seconds = 0;
@@ -157,33 +154,24 @@ public class MainActivity extends AppCompatActivity {
                     checkWork = 1;
                     ck=0;
                     StartAnimation();
-//                    switch (checkAnimation){
-//                        case 1 :
-//                            ImgProgress1.setImageResource(R.drawable.ic_brain);
-//                            ImgProgress1.startAnimation(animationalpha);break;
-//                        case 2 :
-//                            ImgProgress2.setImageResource(R.drawable.ic_brain);
-//                            ImgProgress2.startAnimation(animationalpha);break;
-//                        case 3 :
-//                            ImgProgress3.setImageResource(R.drawable.ic_brain);
-//                            ImgProgress3.startAnimation(animationalpha);break;
-//                        case 4 :
-//                            ImgProgress4.setImageResource(R.drawable.ic_brain);
-//                            ImgProgress4.startAnimation(animationalpha);break;
-//                        case 5 :
-//                            ImgProgress5.setImageResource(R.drawable.ic_brain);
-//                            ImgProgress5.startAnimation(animationalpha);break;
-//                        case 6 :
-//                            ImgProgress6.setImageResource(R.drawable.ic_brain);
-//                            ImgProgress6.startAnimation(animationalpha);break;
-//                        case 7 :  ImgProgress1.setImageResource(R.drawable.ic_brain);
-//                            ImgProgress2.setImageResource(R.drawable.ic_brain2);
-//                            ImgProgress3.setImageResource(R.drawable.ic_brain2);
-//                            ImgProgress4.setImageResource(R.drawable.ic_brain2);
-//                            ImgProgress5.setImageResource(R.drawable.ic_brain2);
-//                            ImgProgress6.setImageResource(R.drawable.ic_brain2);
-//                            ImgProgress1.startAnimation(animationalpha);break;
-//                    }
+                }else if ( checkAnimation==6 && checkWork==1) {
+                    ImgProgress1.setImageResource(R.drawable.ic_brain2);
+                    ImgProgress2.setImageResource(R.drawable.ic_brain2);
+                    ImgProgress3.setImageResource(R.drawable.ic_brain2);
+                    ImgProgress4.setImageResource(R.drawable.ic_brain2);
+                    ImgProgress5.setImageResource(R.drawable.ic_brain2);
+                    ImgProgress6.setImageResource(R.drawable.ic_brain2);
+                    count1.cancel();
+                    CancelAnimation();
+                   // checkAnimation=0;
+                    MinutesRelax =3;
+                    seconds = 0;
+                    CountTimeRelax();
+                    checkWork = 2;
+//                    checkAnimation=7;
+//                    CancelAnimation();
+                    checkAnimation=1;
+                    ck=0;
                 }
                 btnPause.setImageResource(R.drawable.ic_pause_black_24dp);
             }
@@ -247,33 +235,6 @@ public class MainActivity extends AppCompatActivity {
         layout2.setVisibility(LinearLayout.VISIBLE);
         CountTimeWorking();
         checkWork = 1;
-//        switch (checkAnimation){
-//            case 1 :
-//                ImgProgress1.setImageResource(R.drawable.ic_brain);
-//                ImgProgress1.startAnimation(animationalpha);break;
-//            case 2 :
-//                ImgProgress2.setImageResource(R.drawable.ic_brain);
-//                ImgProgress2.startAnimation(animationalpha);break;
-//            case 3 :
-//                ImgProgress3.setImageResource(R.drawable.ic_brain);
-//                ImgProgress3.startAnimation(animationalpha);break;
-//            case 4 :
-//                ImgProgress4.setImageResource(R.drawable.ic_brain);
-//                ImgProgress4.startAnimation(animationalpha);break;
-//            case 5 :
-//                ImgProgress5.setImageResource(R.drawable.ic_brain);
-//                ImgProgress5.startAnimation(animationalpha);break;
-//            case 6 :
-//                ImgProgress6.setImageResource(R.drawable.ic_brain);
-//                ImgProgress6.startAnimation(animationalpha);break;
-//            case 7 :  ImgProgress1.setImageResource(R.drawable.ic_brain);
-//                ImgProgress2.setImageResource(R.drawable.ic_brain2);
-//                ImgProgress3.setImageResource(R.drawable.ic_brain2);
-//                ImgProgress4.setImageResource(R.drawable.ic_brain2);
-//                ImgProgress5.setImageResource(R.drawable.ic_brain2);
-//                ImgProgress6.setImageResource(R.drawable.ic_brain2);
-//                checkAnimation =1;ImgProgress1.startAnimation(animationalpha);break;
-//        }
     }
 
     //method relax
@@ -286,19 +247,6 @@ public class MainActivity extends AppCompatActivity {
         layout2.setVisibility(LinearLayout.VISIBLE);
         CountTimeRelax();
         checkWork = 2;
-//        switch (checkAnimation){
-//            case 1 :
-//                ImgProgress1.clearAnimation();checkAnimation++;break;
-//            case 2 :
-//                ImgProgress2.clearAnimation();checkAnimation++;break;
-//            case 3 :
-//                ImgProgress3.clearAnimation();checkAnimation++;break;
-//            case 4 :
-//                ImgProgress4.clearAnimation();checkAnimation++;break;
-//            case 5 :
-//                ImgProgress5.clearAnimation();checkAnimation++;break;
-//            case 6 :
-//                ImgProgress6.clearAnimation();checkAnimation++;break;//       }
     }
 
     //start animation
@@ -323,14 +271,12 @@ public class MainActivity extends AppCompatActivity {
                 ImgProgress6.setImageResource(R.drawable.iconapp);
                 ImgProgress6.startAnimation(animationalpha);break;
             case 7 :
-                ImgProgress1.setImageResource(R.drawable.iconapp);
+                ImgProgress1.setImageResource(R.drawable.ic_brain2);
                 ImgProgress2.setImageResource(R.drawable.ic_brain2);
                 ImgProgress3.setImageResource(R.drawable.ic_brain2);
                 ImgProgress4.setImageResource(R.drawable.ic_brain2);
                 ImgProgress5.setImageResource(R.drawable.ic_brain2);
                 ImgProgress6.setImageResource(R.drawable.ic_brain2);
-                ImgProgress1.startAnimation(animationalpha);
-                checkAnimation = 0;
                 break;
 
         }
@@ -339,34 +285,26 @@ public class MainActivity extends AppCompatActivity {
     //Cancel animation
     private void CancelAnimation(){
                 switch (checkAnimation) {
-                    case 0:
-                        checkAnimation++;
-                        break;
                     case 1:
                         ImgProgress1.clearAnimation();
-                        checkAnimation++;
                         break;
                     case 2:
                         ImgProgress2.clearAnimation();
-                        checkAnimation++;
                         break;
                     case 3:
                         ImgProgress3.clearAnimation();
-                        checkAnimation++;
                         break;
                     case 4:
                         ImgProgress4.clearAnimation();
-                        checkAnimation++;
                         break;
                     case 5:
                         ImgProgress5.clearAnimation();
-                        checkAnimation++;
                         break;
                     case 6:
                         ImgProgress6.clearAnimation();
-                        checkAnimation++;
                         break;
                 }
+        checkAnimation++;
     }
     private void DialogView() {
         AlertDialog.Builder dialogXoa = new AlertDialog.Builder(this);
@@ -383,6 +321,21 @@ public class MainActivity extends AppCompatActivity {
                 MinutesWorking = 2;
                 MinutesRelax =1;
                 seconds = 0;
+                checkAnimation=1;
+                checkWork =2;
+                ImgProgress1.clearAnimation();
+                ImgProgress2.clearAnimation();
+                ImgProgress3.clearAnimation();
+                ImgProgress4.clearAnimation();
+                ImgProgress5.clearAnimation();
+                ImgProgress6.clearAnimation();
+
+                ImgProgress1.setImageResource(R.drawable.ic_brain2);
+                ImgProgress2.setImageResource(R.drawable.ic_brain2);
+                ImgProgress3.setImageResource(R.drawable.ic_brain2);
+                ImgProgress4.setImageResource(R.drawable.ic_brain2);
+                ImgProgress5.setImageResource(R.drawable.ic_brain2);
+                ImgProgress6.setImageResource(R.drawable.ic_brain2);
                 tvMinutes.setText("00:00");
                 ImgMilis.setImageResource(android.R.color.transparent);
                 layout1.setVisibility(LinearLayout.VISIBLE);
@@ -412,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
         myRunnable1 = new Runnable() {
             @Override
             public void run() {
-                count1 = new CountDownTimer(MinutesWorking * 1000 * 60 + 1000, 1000) {
+                count1 = new CountDownTimer(MinutesWorking * 1000 * 60 + (MinutesWorking+1)*1000, 1000) {
                     int check = 0;
 
                     @Override
@@ -420,7 +373,10 @@ public class MainActivity extends AppCompatActivity {
                         if (MinutesWorking > 0 && seconds == 0) {
                             MinutesWorking--;
                         }
-                        seconds--;
+
+                        if(MinutesWorking>=0 && seconds>-1) {
+                            seconds--;
+                        }
                         if (seconds == -1) {
                             seconds = 59;
                         }
@@ -431,22 +387,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-//                        switch (checkAnimation){
-//                            case 1 :
-//                                ImgProgress1.clearAnimation();checkAnimation++;break;
-//                            case 2 :
-//                                ImgProgress2.clearAnimation();checkAnimation++;break;
-//                            case 3 :
-//                                ImgProgress3.clearAnimation();checkAnimation++;break;
-//                            case 4 :
-//                                ImgProgress4.clearAnimation();checkAnimation++;break;
-//                            case 5 :
-//                                ImgProgress5.clearAnimation();checkAnimation++;break;
-//                            case 6 :
-//                                ImgProgress6.clearAnimation();checkAnimation++;break;
-//                        }
-                        CancelAnimation();
-
                         MinutesWorking = 2;
                         MinutesRelax =1;
                         seconds = 0;
@@ -482,7 +422,9 @@ public class MainActivity extends AppCompatActivity {
                         if (MinutesRelax > 0 && seconds == 0) {
                             MinutesRelax--;
                         }
-                        seconds--;
+                        if(MinutesRelax>=0 && seconds>-1) {
+                            seconds--;
+                        }
                         if (seconds == -1) {
                             seconds = 59;
                         }
@@ -507,5 +449,48 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         handler.postDelayed(myRunnable2, 1000);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menufirst,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menusearch:
+                Toast.makeText(this, "Bạn chọn search", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menushare:
+                Toast.makeText(this, "Bạn chọn share", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menuEmail:
+                Toast.makeText(this, "Bạn chọn Email", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menuExit:
+                Toast.makeText(this, "Bạn chọn exit", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menuPhone:
+                Toast.makeText(this, "Bạn chọn Phone", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menusetting:
+                startActivity(new Intent(MainActivity.this,SetupActivity.class));
+
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        MinutesWorking = 2;
+        MinutesRelax =1;
+        seconds = 0;
+        checkAnimation=1;
+        checkWork =2;
+        super.onDestroy();
     }
 }

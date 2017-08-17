@@ -16,8 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".AlarmReceiver" />
-        <service android:name=".NotificationService"/>
+
+        <service android:name=".NotificationService" />
+
+        <activity android:name=".SetupActivity"></activity>
     </application>
 
 </manifest>
