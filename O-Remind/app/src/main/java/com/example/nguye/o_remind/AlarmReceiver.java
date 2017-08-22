@@ -18,20 +18,25 @@ public class AlarmReceiver extends BroadcastReceiver {
     int notificationid;
     @Override
     public void onReceive(Context context, Intent intent) {
-
-            CreateNotification(context);
-            Intent intentService = new Intent(context,NotificationService.class);
-            intentService.putExtra("data","hihi");
-        context.startService(intentService);
+        String chuoi_String = intent.getExtras().getString("extra");
+        if(chuoi_String.equals("RelaxFinished")){
+            CreateNotification(context,context.getResources().getString(R.string.contentNotifiRelax));
+        }else if(chuoi_String.equals("WorkingFinished")){
+            CreateNotification(context,context.getResources().getString(R.string.contentNotifiWorking));
+        }
+        //           CreateNotification(context);
+//            Intent intentService = new Intent(context,NotificationService.class);
+//            intentService.putExtra("data","hihi");
+//            context.startService(intentService);
     }
-    private void CreateNotification(Context context) {
+    private void CreateNotification(Context context,String s) {
         Intent reintent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, reintent, PendingIntent.FLAG_UPDATE_CURRENT);
         Uri uri = Uri.parse("android.resource://" + context.getPackageName() + "/" +R.raw.rington);
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.iconapp)
                 .setContentTitle(context.getResources().getString(R.string.app_name))
-                .setContentText(context.getResources().getString(R.string.contentNotifi))
+                .setContentText(s)
                 .addAction(R.drawable.ic_pause_black_24dp,context.getResources().getString(R.string.Pause),pendingIntent)
                 .addAction(R.drawable.ic_skip_next_black_24dp,context.getResources().getString(R.string.Skip),pendingIntent)
                 .addAction(R.drawable.ic_stop_black_24dp,context.getResources().getString(R.string.Stop),pendingIntent)

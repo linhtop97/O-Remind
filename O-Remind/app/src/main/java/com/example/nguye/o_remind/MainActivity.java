@@ -1,6 +1,7 @@
 package com.example.nguye.o_remind;
 
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,7 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     //Declare variable
+    Intent intentFinished;
     SharedPreferences sharedPreferences;
     private final Handler handler = new Handler();
     private Runnable RunnableWorking, RunnableRelax;
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
         MinutesRelax = sharedPreferences.getInt("iBreakDuration",5);
         MinutesRelax2 = sharedPreferences.getInt("iLongBreakDuration",20);
         chkLongEnable = sharedPreferences.getBoolean("bLongBreakEnable",true);
+        intentFinished = new Intent(MainActivity.this,AlarmReceiver.class);
         // iWorkSessions = sharedPreferences.getInt("iWorkSessions",6);
         InitViews();
         AddEvents();
@@ -397,6 +400,9 @@ private void AddEvents(){
                         ImgMilis.setImageResource(android.R.color.transparent);
                         LayoutPlaying.setVisibility(LinearLayout.GONE);
                         LayoutRelaxContinue.setVisibility(LinearLayout.VISIBLE);
+                        intentFinished.putExtra("extra", "WokringFinished");
+                        PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 0, intentFinished, PendingIntent.FLAG_UPDATE_CURRENT);
+                     //   sendBroadcast(intentFinished);
                     }
                 }.start();
             }
@@ -443,6 +449,9 @@ private void AddEvents(){
                         ImgMilis.setImageResource(android.R.color.transparent);
                         LayoutPlaying.setVisibility(LinearLayout.GONE);
                         LayoutWorkingContinue.setVisibility(LinearLayout.VISIBLE);
+                        intentFinished.putExtra("extra", "RelaxFinished");
+                        PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 0, intentFinished, PendingIntent.FLAG_UPDATE_CURRENT);
+                      //  sendBroadcast(intentFinished);
                     }
                 }.start();
             }
@@ -498,16 +507,37 @@ private void AddEvents(){
     }
     @Override
     protected void onDestroy() {
-        ResetAll();
         super.onDestroy();
     }
 
     @Override
+    protected void onRestart() {
+        try{
+            Intent intent =getIntent();
+            if(intent.getExtras().getString("datachange1").equals("ok1")){
+                MinutesWorking = sharedPreferences.getInt("iWorkDuration",25);
+            }
+            if(intent.getExtras().getString("datachange2").equals("ok2")) {
+                MinutesRelax = sharedPreferences.getInt("iBreakDuration", 5);
+            }
+            if(intent.getExtras().getString("datachange3").equals("ok3")) {
+                MinutesRelax2 = sharedPreferences.getInt("iLongBreakDuration", 20);
+            }
+            seconds = 0;
+        }catch (Exception e){}
+
+        super.onRestart();
+    }
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+    }
+
+    @Override
     protected void onResume() {
-        MinutesWorking = sharedPreferences.getInt("iWorkDuration",25);
-        MinutesRelax = sharedPreferences.getInt("iBreakDuration",5);
-        MinutesRelax2 = sharedPreferences.getInt("iLongBreakDuration",20);
-        seconds = 0;
+
         super.onResume();
     }
 }

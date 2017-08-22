@@ -1,17 +1,18 @@
 <resources>
     <string name="app_name">O-Remind</string>
-    <string name="contentNotifi">Break time left: </string>
+    <string name="contentNotifiRelax">Break time left: </string>
+    <string name="contentNotifiWorking">Work time left: </string>
     <string name="Pause">Pause</string>
     <string name="Skip">Skip</string>
     <string name="Stop">Stop</string>
     <string name="Play">Play</string>
     <string name="Setup">Settings</string>
     <string name="Timer">Timer</string>
-    <string name="Work_Duration">Work Duration </string>
-    <string name="Break_Duration">Break Duration </string>
-    <string name="Long_Break_Enable">Long Break Enable</string>
-    <string name="Long_Break_Duration">Long Break Duration</string>
-    <string name="Work_sessions">Work sessions Before Long Break</string>
+    <string name="Work_Duration">Work Duration: </string>
+    <string name="Break_Duration">Break Duration: </string>
+    <string name="Long_Break_Enable">Long Break Enable: </string>
+    <string name="Long_Break_Duration">Long Break Duration: </string>
+    <string name="Work_sessions">Work sessions Before Long Break: </string>
     <string name="Notifications">Notifications</string>
 
 
